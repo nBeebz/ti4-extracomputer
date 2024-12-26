@@ -882,6 +882,9 @@ function fctResolveAction()
 
 
     /* Save player timer */
+    if (document.getElementById("idCountdownCheck").checked)
+        gCurrentPlayerTimer -= document.getElementById("idCountdownIncrement").value * 60;
+
     gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK] += gCurrentPlayerTimer;
     gCurrentPlayerTimer = 0;
 
@@ -953,7 +956,15 @@ function FctNextPlayerAction()
         clLink[gActivePlayer].style.opacity = 1;
         clLink[gActivePlayer].style.backgroundColor = color;
         document.getElementById("idPlayerFocus").style.borderColor = color;
-        document.getElementById("idFactoinClk").textContent = fctTransformTime(gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK]);
+        var t;
+        if (document.getElementById("idCountdownCheck").checked)
+        {
+            var start = document.getElementById("idCountdownTime").value;
+            t = (start * 60) - gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK];
+        }
+        else
+            t = gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK];
+        document.getElementById("idFactoinClk").textContent = fctTransformTime(t);
 
         fctSetActionButtons(gActivePlayer);
 

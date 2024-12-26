@@ -205,8 +205,13 @@ function fctOneSecond()
 
     if(document.getElementById("idPlyerTimerCheck").checked)
       var t = gCurrentPlayerTimer;
-    else
+    else if(!document.getElementById("idCountdownCheck").checked)
       var t = gCurrentPlayerTimer + gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK];
+    else
+    {
+      var start = document.getElementById("idCountdownTime").value;
+      var t = (start * 60) - (gCurrentPlayerTimer + gPlayerData[strategyList[gActivePlayer][STRATEGY_PLAYER]][PLAYER_CLOCK]);
+    }
 
     document.getElementById("idFactoinClk").textContent = fctTransformTime(t);
   }
